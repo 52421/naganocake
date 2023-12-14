@@ -3,4 +3,30 @@ class Customer < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  has_many :shipping_addresses, dependent: :destroy       
+  has_many :orders, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
+  
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+  validates :last_name_kana, presence: true
+  validates :first_name_kana, presence: true
+  validates :postal_code, presence: true
+  validates :address, presence: true
+  validates :telephone_number, presence: true
+  validates :email, uniqueness: true
+
+  def name
+    first_name + last_name
+  end
+
+
+  def active_for_authentication? #認証されている会員ですよという定義
+    super && (self.is_valid == true )
+  end
+
+  def addresses
+    postcode + address + name
+  end
 end

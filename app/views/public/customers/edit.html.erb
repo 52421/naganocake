@@ -1,0 +1,14 @@
+<% provide(:title, "登録情報確認") %>
+<% if flash[:notice] %>
+	<div class="alert alert-danger text-center">
+			<%= flash[:notice] %>
+	</div>
+<% end %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+            <h3>登録情報編集</h3>
+        </div>
+    </div>
+    <%= render 'form', customer: @customer %>
+</div>

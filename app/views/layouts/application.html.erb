@@ -5,12 +5,55 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
-  </body>
+ <% if customer_signed_in? %>
+    <body id="wrapper" style="background-color: white; font-family: HiraMinPro-W6; color: #000000;">
+    <!-- ヘッダー -->
+    <div id="header">
+      <%= render "layouts/header" %>
+    </div>
+
+    <!-- Body部分 -->
+    <div class="container" style="margin-top: 20px;">
+      <%= yield %>
+    </div>
+
+    <!-- Footer -->
+    <%= render "layouts/footer" %>
+    </body>
+  <% elsif admin_signed_in? %>
+    <body id="wrapper" style="background-color: #EEEEEE; font-family: HiraMinPro-W6; color: #000000;">
+    <!-- ヘッダー -->
+    <div id="header">
+      <%= render "layouts/header" %>
+    </div>
+
+    <!-- Body部分 -->
+    <div class="container" style="margin-top: 20px;">
+      <%= yield %>
+    </div>
+
+    <!-- Footer -->
+    <%= render "layouts/footer" %>
+    </body>
+  <% else %>
+    <body id="wrapper" style="background-color: white; font-family: HiraMinPro-W6; color: #000000; ">
+    <!-- ヘッダー -->
+    <div id="header">
+      <%= render "layouts/header" %>
+    </div>
+
+    <!-- Body部分 -->
+    <div class="container" style="margin-top: 20px;">
+      <%= yield %>
+    </div>
+
+    <!-- Footer -->
+    <%= render "layouts/footer" %>
+    </body>
+  <% end %>
 </html>
+  

@@ -1,0 +1,42 @@
+<% if flash[:notice] %>
+    <div class="alert alert-info text-center">
+    <%= flash[:notice] %>
+    </div>
+<% end %>
+<div class="search">
+<div class="container">
+	<div class="row">
+			<div class="search-form">
+				<%= form_tag(customer_items_path, method: :get) do %>
+				<span>商品名検索　▶︎　</span>
+					<%= text_field_tag :name, "", placeholder: "例：ショートケーキ" %>
+					<%= submit_tag  '検索', class: "btn btn-primary" %>
+				<% end %>
+			</div>
+	</div>
+</div>
+</div>
+<div class="eyecatch">
+	<div class="contentbox">
+		<h1 style="font-weight: bold;">Welcome to<br>NaganoCAKE</h1>
+		<p>ながのcakeが運営する通販サイトです。<br>
+			注文いただいてから<br>
+			製作する受注生産です。<br>
+			送料に600円頂いております。<br>
+			会員でない方も<br>
+			<%= link_to "商品の閲覧", customer_items_path %>  はできますが、<br>
+			購入には<br>
+			<%= link_to "会員登録", new_customer_registration_path%> が必要になります。<br>
+			ごゆっくりご覧ください！</p>
+	</div>
+</div>
+
+
+<div class="container">
+		<div class="col-lg-10">
+			<h1 style="font-weight: bold;">NEW ITEMS <i class="fas fa-shopping-cart"></i></h1>
+		</div>
+			<%= link_to "もっと見る", customer_items_path, class: "btn btn-default btn-lg",style: "margin-bottom:30px;" %>
+		</div>
+	</div>
+</div>

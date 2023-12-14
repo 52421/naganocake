@@ -1,0 +1,41 @@
+<% if flash[:notice] %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5">
+      <h3>管理者ログイン</h3>
+    </div>
+  </div>
+  <div class="row">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="col-lg-2 col-lg-offset-3">
+      <span>メールアドレス</span>
+    </div>
+    <div class="col-lg-3">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2 col-lg-offset-3">
+      <span>パスワード</span>
+    </div>
+    <div class="col-lg-3">
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+  </div>
+  <div class="login">
+  <div class="row">
+    <div class="col-lg-3 col-lg-offset-4">
+      <%= f.submit "ログイン", class: "btn btn-primary" %>
+    </div>
+  </div>
+  </div>
+    <% end %>
+
+    <%= render "admin/shared/links" %>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<% provide(:title, "商品詳細") %>
+<% if flash[:notice] %>
+	<div class="alert alert-info text-center">
+			<%= flash[:notice] %>
+	</div>
+<% end %>
+<div class="container">
+	<%= render 'customer/sidebar' %>
+<div class="col-lg-5">
+<%= attachment_image_tag @item, :item_image,style: "width: 350px; height: 250px; margin-top:80px;" %>
+</div>
+ <div class="col-lg-5">
+  <h1 class="pull-left" style="font-weight: bold; margin-top:100px;"><%= @item.name%></h1>
+ </div>
+<div class="col-lg-5">
+ <p class="pull-left"><%= @item.description %></p>
+</div>
+<div class="col-lg-5">
+ <p class="pull-left"><strong>¥ <%= include_tax(@item.price) %></strong>(税込)</p>
+</div>
+ <%= render 'customer/items/cart', cart_item: @cart_item%>
+</div>

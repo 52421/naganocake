@@ -1,0 +1,37 @@
+<!--ヘッダー入る。[LOGO] [商品一覧] [会員一覧] [注文履歴一覧] [ジャンル一覧] [ログアウト] [Search検索] -->
+
+<% if flash[:notice] %>
+    <div class="alert alert-info">
+    <%= flash[:notice] %>
+    </div>
+<% end %>
+
+
+<div class="container">
+<div class="col-lg-12" style="margin-bottom: 30px;">
+	<h1><%= Time.zone.now.to_s(:dateweek_jp) %></h1>
+	<h4>本日も、お仕事お疲れ様です。</h4>
+</div>
+<div class="col-lg-12">
+	<div class="naganocake">
+	</div>
+</div>
+
+<div class="col-lg-12">
+	<h4>本日の注文件数　　<%= link_to @orders.created_today.count, admin_orders_path(created_at: @orders.created_today) %>　件</h4>
+</div>
+<div class="col-lg-12">
+	<h4>入金済 / 未発送の注文件数　　<%= link_to @order.count, admin_orders_path(status: "not" ) %>　件</h4>
+</div>
+
+<% if @new_order.present? == true %>
+
+<div class="col-lg-12">
+	<h4>最新の注文　　<%= link_to @new_order.created_at.to_s(:datetime_jp), admin_order_path(@new_order) %></h4>
+</div>
+<% end %>
+<div class="col-lg-12">
+	<h4>現在の有効会員数　　<%= link_to @customers.count, admin_customers_path(is_valid: true) %>　名</h4>
+</div>
+
+</div>

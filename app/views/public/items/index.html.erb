@@ -1,0 +1,13 @@
+<% provide(:title, "商品一覧") %>
+<div class="container">
+	<%= render 'customer/sidebar' %>
+	<% if @genre.present? == true %>
+		<h1 style="font-weight: bold"><%= @genre.name %><span class="count"> \ 全<%= @items.length%>件 /</span></h1>
+	<% else %>
+		<h1 style="font-weight: bold">全ての商品<span class="count"> \ 全<%= @items.length%>件 /</span></h1>
+	<% end %>
+		<%= render 'customer/index', index_items: @index_items %>
+	<div class="col-lg-offset-2 col-lg-10">
+		<%= paginate @index_items %>
+	</div>
+</div>

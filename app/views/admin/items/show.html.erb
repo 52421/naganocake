@@ -1,0 +1,35 @@
+<div class="row">
+ <div class="col-xs-4">
+  <h2>商品詳細</h2><br>
+  
+ </div>
+    <div class="col-xs-8">
+     <table class="table">
+      <tbody>
+       <tr>
+        <td>商品画像</td>
+        <%= f.file_field :image, placeholder: "プロフィール画像", accept: "image/*" %>  
+       </tr>
+       <tr>
+        <td>商品名</td>
+        <td><%= @item.name %></td>
+       </tr>
+       <tr>
+        <td>商品説明</td>
+        <td><%= @item.introduction %></td>
+       </tr>
+       <tr>
+        <td>ジャンル</td>
+        <td><%= @item.genre.name %></td>
+       </tr>
+       <tr>
+        <td>税込価格</td>
+        <td><%= (@item.price*1.1).floor.to_s(:delimited, delimiter: ',') %>円</td>
+       </tr>
+      </tbody>
+     </table>
+      <div class="col-md-offset-1 col- md-2 text-right"> 
+      <%= link_to "編集する", edit_admin_item_path, class:"btn btn-success" %>
+     </div> 
+    </div>
+</div>
