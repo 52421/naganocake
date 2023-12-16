@@ -44,11 +44,14 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
       root 'homes#top'
-      resources :customers, only:[:show, :edit, :update] do
-        member do
-          get 'quit'
-        end
-      end
+      get '/customers/my_page' => "customers#show", as: "my_page"
+
+      
+      resources :addresses
+      
+      resources :orders
+      post 'orders/thanks' => 'orders#thanks'
+     
     resources :'mailing_addresses', only:[:index, :create, :edit, :update, :destroy]
   end
 end

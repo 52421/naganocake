@@ -27,8 +27,6 @@
 <% else %>
     <div class="header-bottom">
         <ul class="nav nav-pills nav-justified">
-            <li class= "<%= 'active' if controller.action_name == 'top' %>"><%= link_to "HOME", root_path %></li>
-            <li><%= link_to "CART", new_customer_registration_path %></li>
             <li class= "<%= 'active' if controller.controller_name == 'items' %>"><%= link_to "ALL ITEMS", customer_items_path %></li>
             <li class= "<%= 'active' if controller.action_name == 'about' %>"><%= link_to "ABOUT", about_path %></li>
             <li class= "<%= 'active' if controller.controller_name == 'sessions' %>"><%= link_to "LOGIN", new_customer_session_path %></li>
