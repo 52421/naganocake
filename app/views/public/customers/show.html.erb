@@ -10,9 +10,11 @@
 			<strong class="red-border px-3 pb-1">登録情報</strong>
 		</div>
 	</div>
-	<div class="row">
-	　<%= link_to "編集する", edit_customer_path(@customer), class: "btn btn-outline-danger mx-auto my-1" %>
-　</div>
+	<% if current_customer.present? %>
+  <div class="row">
+    <%= link_to "編集する", admin_customer_path(current_customer), class: "btn btn-outline-danger mx-auto my-1" %>
+  </div>
+　<% end %>
   <div class="row">
 	  <div class="offset-sm-4 col-sm-4">
 	    <table class="table table-borderless table-hover">
@@ -56,9 +58,6 @@
   </div>
 
 		<div class="offset-sm-1 col-sm-3">
-			<div class="row">
-		 		<%= link_to "配送先一覧を見る", ship_addresses_path, class: "btn btn-primary btn-outline-danger my-1" %>
-		 	</div>
 		 	<div class="row">
 				<%= link_to "注文一覧を見る", orders_path, class: "btn btn-primary btn-outline-danger my-1" %>
 			</div>

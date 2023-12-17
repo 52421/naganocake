@@ -1,14 +1,13 @@
 <header>
 <% if customer_signed_in? %>
-    <div class="welcome"> <i class="fas fa-bullhorn"></i>　ようこそ、<strong><%= current_customer.name %></strong>　さん！</div>
+  <div class="welcome"> <i class="fas fa-bullhorn"></i>　ようこそ、<strong><%= current_customer.name %></strong>　さん！</div>
         <div class="header-bottom">
             <ul class="nav nav-pills nav-justified">
-                <li class= <%= 'active' if controller.action_name == 'top' %>><%= link_to "HOME", font_path %></li>
-                <li class= <%= 'active' if controller.controller_name == 'cart_items' %>><%= link_to "CART", cart_items_path %></li>
-                <li class= <%= 'active' if controller.controller_name == 'items' %>><%= link_to "ALL ITEMS", customer_items_path %></li>
-                <li><%= link_to image_tag('logo2.png'), root_path %></li>
-                <li class= <%= 'active' if controller.action_name == 'about' %>><%= link_to "ABOUT", about_path %></li>
-                <li class= <%= 'active' if controller.controller_name == 'customers' %>><%= link_to "MYPAGE", customer_path(current_customer) %></li>
+                <li class="<%= 'active' if controller.action_name == 'top' %>"><%= link_to "HOME", root_path %></li>
+                <li class="<%= 'active' if controller.controller_name == 'cart_items' %>"><%= link_to "CART", @cart_items_path %></li>
+                <li class="<%= 'active' if controller.controller_name == 'items' %>"><%= link_to "ALL ITEMS", @customer_items_path %></li>
+                <li class="<%= 'active' if controller.action_name == 'about' %>"><%= link_to "ABOUT", customer_about_path %></li>
+                <li class="<%= 'active' if controller.controller_name == 'customers' %>"><%= link_to "MYPAGE", customer_registration_path(current_customer) %></li>
                 <li><%= link_to "LOGOUT", destroy_customer_session_path, method: :delete %></li>
             </ul>
         </div>
@@ -27,10 +26,10 @@
 <% else %>
     <div class="header-bottom">
         <ul class="nav nav-pills nav-justified">
-            <li class= "<%= 'active' if controller.controller_name == 'items' %>"><%= link_to "ALL ITEMS", customer_items_path %></li>
-            <li class= "<%= 'active' if controller.action_name == 'about' %>"><%= link_to "ABOUT", about_path %></li>
-            <li class= "<%= 'active' if controller.controller_name == 'sessions' %>"><%= link_to "LOGIN", new_customer_session_path %></li>
-            <li class= "<%= 'active' if controller.controller_name == 'registrations' %>"><%= link_to "新規登録", new_customer_registration_path %></li>
+            <li class="<%= 'active' if controller.controller_name == 'items' %>"><%= link_to "ALL ITEMS", customer_items_path %></li>
+            <li class="<%= 'active' if controller.action_name == 'about' %>"><%= link_to "ABOUT", about_path %></li>
+            <li class="<%= 'active' if controller.controller_name == 'sessions' %>"><%= link_to "LOGIN", new_customer_session_path %></li>
+            <li class="<%= 'active' if controller.controller_name == 'registrations' %>"><%= link_to "新規登録", new_customer_registration_path %></li>
         </ul>
     </div>
 <% end %>
