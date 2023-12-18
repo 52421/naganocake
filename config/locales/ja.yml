@@ -4,7 +4,7 @@ ja:
       payment_method:
         credit_card: "クレジットカード"
         transfer: "銀行振込"
-         activerecord:
+  activerecord:
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :order_items, only:[:update]
   end
 
-  scope namespace :public do
+  scope module: :public do
     get '/about' => 'homes#about'
     get '/customers/my_page' => "customers#show", as: "my_page"
     delete '/cart_items/destroy_all' => 'cart_items#destroy_all'
