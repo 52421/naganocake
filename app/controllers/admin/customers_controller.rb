@@ -2,12 +2,7 @@ class Admin::CustomersController < ApplicationController
     before_action :authenticate_admin!
 
  def index
-  if params[:is_valid]
-   @customer = Customer.where(is_valid: true)
-   @customers = Customer.order(:id).page(params[:page])
-  else
-   @customers = Customer.order(:id).page(params[:page])
-  end
+  @customer = current_customer
  end
 
  def show

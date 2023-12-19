@@ -1,25 +1,26 @@
 class Admin::ItemsController < ApplicationController
     before_action :authenticate_admin!,only: [:edit,:update,:show]
 
+  def new
+    @items = Item.new
+  end
+  
   def show
     @item = Item.find(params[:id])
   end
 
   def index
-    @items = @search.result.page(params[:page]).per(10)
-  end
-
-  def new
-    @items = Item.new
+    @items = Item.page(params[:page]).per(10)
   end
 
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to admins_item_path(@item)
+      flash.now[:success] = "商品の新規登録が完了しました。"
+      redirect_to admin_item_path(@item)
     else
-      flash[:genre_created_error] = "ジャンル名を入力してください"
-    redirect_to new_admins_item_path
+      flash.now[:danger] = "商品の新規登録内容に不備があります。"
+      render :new
     end
   end
 
@@ -29,12 +30,13 @@ class Admin::ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(item_params)
-      redirect_to admins_items_path(@item)
-      flash[:notice_update] = "ジャンル情報を更新しました！"
-    else
-      redirect_to edit_admins_item_path(@item)
-    end
+     if @item.update(item_params)
+       flash.now[:success] = "商品詳細の変更が完了しました。"
+       redirect_to admin_item_path(@item)
+     else
+       flash.now[:danger] = "商品詳細の変更内容に不備があります。"
+       render :edit
+     end
   end
 
   private

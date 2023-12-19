@@ -17,10 +17,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :admin do
     get '/admins' => 'admins#top'
-    resources :items
-    resources :genres
-    resources :members
-    resources :orders,only:[:index,:show,:update]
+    resources :items,only:[:index, :create, :new, :show, :edit, :update]
+    resources :genres, only: [:index, :edit, :create, :update]
+    resources :customers, only: [:index, :show, :edit, :update]
+    resources :orders,only:[:show,:update]
     resources :order_items, only:[:update]
   end
 

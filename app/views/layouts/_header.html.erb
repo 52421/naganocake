@@ -13,13 +13,11 @@
         </div>
 <% elsif admin_signed_in? %>
     <div class="admin-header">
-        <h3><%= link_to "ながのCAKE", admin_path %></h3>
+        <h3><%= link_to "ながのCAKE", admin_items_path %></h3>
         <ul class="nav navbar-nav navbar-right">
-            <li><%= render 'search/form' %></li>
             <li><%= link_to "商品一覧", admin_items_path %></li>
-            <li><%= link_to "会員一覧", admin_customers_path %></li>
+            <li><%= link_to "会員一覧", customer_path %></li>
             <li><%= link_to "注文履歴一覧", admin_orders_path %></li>
-            <li><%= link_to "ジャンル一覧", admin_genres_path %></li>
             <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
         </ul>
     </div>

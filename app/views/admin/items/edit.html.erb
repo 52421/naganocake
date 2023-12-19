@@ -20,10 +20,6 @@
         <td><%= f.text_area :introduction, class: "form-control" %></td>
        </tr>
        <tr>
-        <th>ジャンル</th>
-        <td><%= f.collection_select :genre_id, Genre.all ,:id, :name, include_blank: "--選択してください--" %></td>
-       </tr>
-       <tr>
         <th>税抜価格</th>
         <td>  <%= f.text_field :price, class: "form-control" %></td>
        </tr>
