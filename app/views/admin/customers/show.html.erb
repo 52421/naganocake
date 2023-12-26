@@ -10,7 +10,7 @@
                     <th>顧客ID</th>
                     <td><%= @customer.id %>
                     <span class="label label-primary">
-                    <% if @customer.is_valid == true %>
+                    <% if @customer.is_active == true %>
                     有効
                     <% else %>
                     退会済み
@@ -24,11 +24,11 @@
                 </tr>
                 <tr>
                     <th>フリガナ</th>
-                    <td><%= @customer.kana_first_name %> <%= @customer.kana_last_name %></td>
+                    <td><%= @customer.first_name_kana %> <%= @customer.last_name_kana %></td>
                 </tr>
                 <tr>
                     <th>郵便番号</th>
-                    <td><%= @customer.postcode %></td>
+                    <td><%= @customer.postal_code %></td>
                 </tr>
                 <tr>
                     <th>住所</th>
@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <th>電話番号</th>
-                    <td><%= @customer.phone_number %></td>
+                    <td><%= @customer.telephone_number %></td>
                 </tr>
                 <tr>
                     <th>メールアドレス</th>
@@ -50,7 +50,7 @@
             <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: "btn btn-info" %>
         </div>
         <div class="col-lg-1">
-            <%= link_to "注文一覧を見る", admin_orders_path(customer_id: @customer.id), class: "btn btn-info" %>
+            <%= link_to "注文一覧を見る", admin_order_path, class: "btn btn-info" %>
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@ class Admin::ItemsController < ApplicationController
     before_action :authenticate_admin!,only: [:edit,:update,:show]
 
   def new
-    @items = Item.new
+    @item = Item.new
   end
   
   def show
@@ -17,7 +17,7 @@ class Admin::ItemsController < ApplicationController
     @item = Item.new(item_params)
     if @item.save
       flash.now[:success] = "商品の新規登録が完了しました。"
-      redirect_to admin_item_path(@item)
+      redirect_to admin_items_path
     else
       flash.now[:danger] = "商品の新規登録内容に不備があります。"
       render :new
@@ -41,6 +41,6 @@ class Admin::ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:genre_id, :name, :description, :price_without_tax, :image, :is_sales_status)
+    params.require(:item).permit(:name, :introduction, :price, :image )
   end
 end

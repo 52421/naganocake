@@ -1,41 +1,33 @@
 class Admin::OrdersController < ApplicationController
     before_action :authenticate_admin!
 
-   def index
-      if params[:customer_id]
-         orders = Order.where(customer_id: params[:customer_id])
-         @index_orders = orders.order(created_at: "DESC").page(params[:page])
-      elsif params[:created_at]
-         orders = Order.created_today
-         @index_orders = orders.order(created_at: "DESC").page(params[:page])
-      elsif params[:status] == "not"
-         orders = Order.where.not(order_status: 0).where.not(order_status: 4)
-         @index_orders = orders.order(created_at: "DESC").page(params[:page])
-      else
-         @index_orders = Order.order(created_at: "DESC").page(params[:page])
-      end
+  def index
+    @orders = Order.page(params[:page]).per(10)
+  end
+  
+  def show
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details
+  end
+
+
+  def update
+    @order = Order.find(params[:id])
+   if @order.update(order_params)
+      redirect_to admins_orders_path, notice: 'ユーザ情報を更新しました。'
+   else
+      render :show
+    @user = @order.user
+    @order_products = @order.order_products
+    @order_product = OrderProduct.find(@admins_order.id)
    end
 
-   def show
-   	@order = Order.find(params[:id])
-   	@order_items = OrderItem.where(order_id:[@order.id])
-   end
+  end
 
-   def update
-   	@order = Order.find(params[:id])
-      @order_items = OrderItem.where(order_id: [@order.id])
-      @order.update(order_params)
-      if params[:order][:order_status] == "入金確認"
-         @order_items.each do |order_item|
-            order_item.update!(create_status: 1)
-         end
-      end
-      redirect_to admin_order_path(@order)
-   end
+private
 
-   private
-   def order_params
-      params.require(:order).permit(:customer_id, :postcode, :address, :payment_method, :order_status, :postage, :payment)
-   end
+  def order_params
+    params.require(:order).permit(:user_id, :total_charge, :purchase_date, :payment_method, :order_status, :postage, :destination_address, :destination_name, :destination_postal_code)
+  end
 
 end

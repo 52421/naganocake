@@ -18,20 +18,20 @@
 </div>
 
 <div class="col-lg-12">
-	<h4>本日の注文件数　　<%= link_to @orders.created_today.count, admin_orders_path(created_at: @orders.created_today) %>　件</h4>
+	<h4>本日の注文件数　　<%#= link_to @orders.created_today.count, admin_order_path()%>　件</h4>
 </div>
 <div class="col-lg-12">
-	<h4>入金済 / 未発送の注文件数　　<%= link_to @order.count, admin_orders_path(status: "not" ) %>　件</h4>
+	<h4>入金済 / 未発送の注文件数　　<%#= link_to @order.count, admin_order_path() %>　件</h4>
 </div>
 
 <% if @new_order.present? == true %>
 
 <div class="col-lg-12">
-	<h4>最新の注文　　<%= link_to @new_order.created_at.to_s(:datetime_jp), admin_order_path(@new_order) %></h4>
+	<h4>最新の注文　　<%#= link_to @new_order.created_at.to_s(:datetime_jp), admin_order_path(@new_order) %></h4>
 </div>
 <% end %>
 <div class="col-lg-12">
-	<h4>現在の有効会員数　　<%= link_to @customers.count, admin_customers_path(is_valid: true) %>　名</h4>
+	<h4>現在の有効会員数　　<%#= link_to @customers.count, admin_customers_path() %>　名</h4>
 </div>
 
 </div>

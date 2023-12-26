@@ -84,8 +84,6 @@ ActiveRecord::Schema.define(version: 2023_12_16_151421) do
     t.string "name", null: false
     t.text "introduction", null: false
     t.integer "price", null: false
-    t.integer "genre_id", null: false
-    t.string "item_image_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -22,7 +22,7 @@
                         <td><%= link_to customer.name, admin_customer_path(customer) %></td>
                         <td><%= customer.email %></td>
                         <td>
-                            <% if customer.is_valid == true %>
+                            <% if customer.is_active == true %>
                                 有効
                             <% else %>
                                 退会済み
