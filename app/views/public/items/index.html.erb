@@ -1,13 +1,24 @@
-<% provide(:title, "商品一覧") %>
-<div class="container">
-	<%= render 'customer/sidebar' %>
-	<% if @genre.present? == true %>
-		<h1 style="font-weight: bold"><%= @genre.name %><span class="count"> \ 全<%= @items.length%>件 /</span></h1>
-	<% else %>
-		<h1 style="font-weight: bold">全ての商品<span class="count"> \ 全<%= @items.length%>件 /</span></h1>
-	<% end %>
-		<%= render 'customer/index', index_items: @index_items %>
-	<div class="col-lg-offset-2 col-lg-10">
-		<%= paginate @index_items %>
-	</div>
+<div class="row login-row">
+    <div class="col-xs-9">
+        <h2><%= "#{@index}一覧 （全#{@items.count}件）" %></h2>
+        <% @items.each do |item| %>
+            <div class="product-box">
+                <table class="table">
+                    <tr>
+                        <th><%= link_to item_path(item) do %>
+                            <#%= image_tag @item.image, size: "200x200" %> 
+                            <% end %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th><%= link_to item.name, item_path(item) %></th>
+                    </tr>
+                    <tr>
+                        <th>￥<%= (item.price * 1.1).to_i %></th>
+                    </tr>
+                </table>
+            </div>
+        <% end %>
+        <%= paginate @items %>
+    </div>
 </div>

@@ -5,18 +5,23 @@
 	</div>
 <% end %>
 <div class="container">
-	<%= render 'customer/sidebar' %>
 <div class="col-lg-5">
-<%= attachment_image_tag @item, :item_image,style: "width: 350px; height: 250px; margin-top:80px;" %>
+<#%= attachment_image_tag @item, :item_image,style: "width: 350px; height: 250px; margin-top:80px;" %>
 </div>
  <div class="col-lg-5">
   <h1 class="pull-left" style="font-weight: bold; margin-top:100px;"><%= @item.name%></h1>
  </div>
 <div class="col-lg-5">
- <p class="pull-left"><%= @item.description %></p>
+ <p class="pull-left"><%= @item.introduction %></p>
 </div>
 <div class="col-lg-5">
- <p class="pull-left"><strong>¥ <%= include_tax(@item.price) %></strong>(税込)</p>
+ <p class="pull-left"><strong>¥ <%= (@item.price) %></strong>(税込)</p>
 </div>
- <%= render 'customer/items/cart', cart_item: @cart_item%>
+<%= form_with(model: @cart_items, url: cart_items_path, method: :post, local: true) do |f| %>
+  <%= f.label :amount, "個数選択" %>
+  <%= f.number_field :amount, name: 'cart_item[amount]', min: 1, max: 100, placeholder: '個数選択', class: "quantity-select-form" %>
+  <%= f.hidden_field :id, :value => @item.id %>
+  <%= f.submit "カートに入れる", class: "btn btn-primary" %>
+<% end %>
+ <#%= render 'public/cart_items', resource: @cart_item %>
 </div>

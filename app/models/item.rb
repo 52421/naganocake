@@ -7,5 +7,8 @@ class Item < ApplicationRecord
     validates :price, presence: true, numericality: true
     validates :introduction, presence: true, length: {maximum: 140, minimum: 10}
     validates :name, presence: true, uniqueness: true
- 
+    
+    def with_tax_price
+     (price * 1.1).floor
+    end
 end

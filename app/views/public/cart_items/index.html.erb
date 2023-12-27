@@ -16,12 +16,14 @@
 	 <div class="col-lg-10 col-xs-offset-1">
 	  <table>
        <thead>
+        <th>商品名</th>
         <th>単価(税込)</th>
+        <th>数量</th>
         <th>小計</th>
        </thead>
      <tbody>
      	
-  <% インスタンス変数.each do |cart_item| %>
+  <% @cart_items.each do |cart_item| %>
     <tr>
       <td><%= cart_item.item.with_tax_price %></td>
       <td><%= cart_item.subtotal %></td>
@@ -36,11 +38,12 @@
 		<div class="col-lg-4">
 			<%= link_to '買い物を続ける', root_path, class: 'btn btn-primary' %>
 		</div>
-	<div class="col-lg-3 col-xs-offset-4">
-		<table class="table table-bordered">
-		<tr><th class="active">合計金額</th><td><%= total %>円</td></tr>
-		</table>
-	</div>
+    <table class="table table-bordere">
+	 <tr>
+	  <th>合計金額</th>
+	  <td><%= @sum %></td>
+     </tr>
+    </table>
 	<% if @cart_items.present? == true %>
 		<%= link_to  orders_new_path ,class: 'btn btn-success btn-lg' do %>
 			<p style= "margin: 0; padding: 10px 50px">情報入力へ進む</p>
