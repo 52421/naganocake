@@ -22,7 +22,7 @@ class Customer < ApplicationRecord
   end
 
   def addresses
-    postcode + address + name
+    postal_code
   end
   
   enum status: {

@@ -14,6 +14,11 @@ class Public::ItemsController < ApplicationController
  end
 
  def about
-    
  end
+ 
+  private
+
+  def items_params
+    params.require(:item).permit(:name, :price, :introduction, :image_id)
+  end
 end

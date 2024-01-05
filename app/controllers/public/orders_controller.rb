@@ -1,5 +1,4 @@
 class Public::OrdersController < ApplicationController
- before_action :order_is_valid,only:[:new, :confirm, :create]
  before_action :authenticate_customer!
 
   def index
