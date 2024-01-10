@@ -1,92 +1,65 @@
 class Public::OrdersController < ApplicationController
- before_action :authenticate_customer!
-
-  def index
-    @orders = current_customer.orders
-  end
-
-  def show
-    @order = Order.find(params[:id])
-    @order_details = @order.order_details
-  end
-
+ before_action :ensure_cart_items, only: [:new, :confirm, :create]
   def new
     @order = Order.new
-    @addresses = current_customer.addresses
   end
 
-  def confirm
-    @cart_items = current_customer.cart_items
+  def confirm # ※まだ保存はしていない, あくまでデータを送っているだけ!(saveする必要なし！)
+    @order = Order.new(order_params)
+    @cart_items = current_customer.cart_items.all
+    @total = @cart_items.inject(0){ | sum, item | sum + item.subtotal}
+    @order.shipping_cost = 800
+    @order.total_payment = @order.shipping_cost + @total # 請求金額計算(送料 + カート内商品の合計)
+    # @order.payment_method = params[:order][:payment_method]
 
-    @order = Order.new(
-      customer: current_customer,
-      payment_method: params[:order][:payment_method])
-
-    # total_paymentに請求額を入れる billingはhelperで定義
-    @order.total_payment = billing(@order)
-
-    # my_addressに1が入っていれば（自宅）
-    if params[:order][:my_address] == "1"
+    if params[:order][:address_option] == "0" # ご自身の住所 選択時
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = full_name(current_customer)
-
-    # my_addressに2が入っていれば（配送先一覧）
-    elsif params[:order][:my_address] == "2"
-      ship = Address.find(params[:order][:address_id])
-      @order.postal_code = ship.postal_code
-      @order.address = ship.address
-      @order.name = ship.name
-
-    # my_addressに3が入っていれば(新配送先)
-    elsif params[:order][:my_address] == "3"
-      @order.postal_code = params[:order][:postal_code]
-      @order.address = params[:order][:address]
-      @order.name = params[:order][:name]
-      @ship = "1"
-
-    # 有効かどうかの確認
-      unless @order.valid? == true
-        @addresses = Address.where(customer: current_customer)
-        render :new
-      end
+      @order.name = current_customer.last_name + current_customer.first_name
+    elsif params[:order][:address_option] == "1" # 配送先の登録済住所から選択 選択時
+      @address = Address.find(params[:order][:address_id])
+      @order.postal_code = @address.postal_code
+      @order.address = @address.address
+      @order.name = @address.name
+    elsif params[:order][:address_option] == "2" # 新しいお届け先 選択時
     end
+  end
+
+  def complete
   end
 
   def create
-    @order = current_customer.orders.new(order_params)
-    @order.save
+    @order = Order.new(order_params)
+    @order.customer_id = current_customer.id
+    @order.save # ここで初めて指定した各情報を保存
 
-    # 情報入力に新規配送先があれば保存
-    if params[:order][:ship] =="1"
-      current_customer.address.create(address_params)
-    end
-
-       # カート商品の情報を注文履歴に移動させる
-      @cart_items = current_customer.cart_items
-      @cart_items.each do |cart_item|
+    current_customer.cart_items.each do |cart_item| #注文詳細モデル(order_details)に各注文商品を保存
       @order_detail = OrderDetail.new
-      @order_detail.item_id = cart_item.item_id
       @order_detail.order_id = @order.id
-      @order_detail.count = cart_item.count
-      @order_detail.price = cart_item.item.price * cart_item.count 
+      @order_detail.item_id = cart_item.item_id
+      @order_detail.price = cart_item.subtotal
+      @order_detail.amount = cart_item.amount
       @order_detail.save
-      end
-    # 最後にカートを全て削除する
-    @cart_items.destroy_all
-
-    redirect_to thanx_orders_path
+    end
+    current_customer.cart_items.destroy_all # カート内商品を全て削除
+    redirect_to orders_complete_path
   end
 
-  def thanx
+  def index
   end
+
+  def show
+  end
+
 
   private
+
   def order_params
-    params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_payment)
+    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :payment_method)
   end
 
-  def address_params
-    params.require(:order).permit(:postal_code, :address, :name)
+  def ensure_cart_items
+    @cart_items = current_customer.cart_items
+    redirect_to cart_items_path unless @cart_items.exists? # カート内商品が存在していなければ一覧へリダイレクト
   end
 end

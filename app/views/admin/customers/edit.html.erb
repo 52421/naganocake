@@ -17,8 +17,8 @@
 
     <tr>
       <th><%= f.label :フリガナ %></th>
-      <td><%= f.text_field :last_name_kana, class:"form-control" %><br>
-      <%= f.text_field :first_name_kana, class:"form-control" %>
+      <td><%= f.text_field :last_name_kana, autofocus: true, autocomplete: "last_name_kana" %><br>
+          <%= f.text_field :first_name_kana, class:"form-control" %>
       </td>
     </tr>
 

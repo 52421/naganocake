@@ -1,19 +1,21 @@
-<header>
-<% if customer_signed_in? %>
- <div class="welcome"> <i class="fas fa-bullhorn"></i>　ようこそ、<strong><%= current_customer.name %></strong>　さん！
-  <div class="header-bottom">
-   <ul class="nav navbar-nav navbar-right">
+<header class="shadow-sm">
+ <nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+   <% if customer_signed_in? %>
+    <div class="welcome"> <i class="fas fa-bullhorn"></i>　ようこそ、<strong><%= current_customer.last_name %></strong>　さん！
+     <div class="navbar-collapse collapse" id="navbarNavDropdown" style="">
+      <ul class="navbar-nav ml-auto">
                 <li class="<%= 'active' if controller.controller_name == 'cart_items' %>"><%= link_to "カート", cart_items_path %></li>
                 <li class="<%= 'active' if controller.controller_name == 'items' %>"><%= link_to "商品一覧", items_path %></li>
                 <li class="<%= 'active' if controller.controller_name == 'customers' %>"><%= link_to "マイページ", my_page_path(@customer) %></li>
                 <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete %></li>
-   </ul>
-  </div>
- </div>
-<% elsif admin_signed_in? %>
+      </ul>
+     </div>
+    </div>
+   <% elsif admin_signed_in? %>
     <div class="admin-header">
-      <div class="collapse navbar-collapse" id="navbarNavDropdown" >
-       <ul class="nav navbar-nav navbar-right">
+     <div class="navbar-collapse collapse" id="navbarNavDropdown" style="">
+       <ul class="navbar-nav ml-auto">
         <h3>ながのCAKE</h3>
             <li><%= link_to "商品一覧", admin_items_path %></li>
             <li><%= link_to "会員一覧", admin_customers_path %></li>
@@ -22,14 +24,17 @@
         </ul>
       </div>
     </div>
-<% else %>
-    <div class="header-bottom">
-        <ul class="nav navbar-nav navbar-right">
+   <% else %>
+    <div class="navbar-collapse collapse" id="navbarNavDropdown" style="">
+     <ul class="navbar-nav ml-auto">
             <li class="<%= 'active' if controller.action_name == 'about' %>"><%= link_to "ABOUT", about_path %></li>
             <li class="<%= 'active' if controller.controller_name == 'items' %>"><%= link_to "商品一覧", items_path %></li>
             <li class="<%= 'active' if controller.controller_name == 'sessions' %>"><%= link_to "ログイン", new_customer_session_path %></li>
             <li class="<%= 'active' if controller.controller_name == 'registrations' %>"><%= link_to "新規登録", new_customer_registration_path %></li>
-        </ul>
+     </ul>
     </div>
-<% end %>
+   <% end %>
+  </div>
+ </nav>
 </header>
+

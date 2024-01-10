@@ -29,17 +29,17 @@ Rails.application.routes.draw do
     get '/customers/my_page' => "customers#show", as: "my_page"
     delete '/cart_items/destroy_all' => 'cart_items#destroy_all'
     resources :items, only:[:index,:show,:new] do
-        get :search, on: :collection # ジャンル検索機能用
+    get :search, on: :collection # ジャンル検索機能用
     end
     resources :cart_items
     post '/orders/session' => 'orders#session_create'
     get '/orders/confirm' => 'orders#confirm'
     post '/orders/confirm' => 'orders#confirm'
-    get '/orders/thanks' => 'orders#thanks'
+   get 'orders/complete' => "orders#complete"
     patch '/members/withdrawal' => 'members#destroy'
     get '/members/withdrawal' => 'members#withdrawal'
     resources :orders, only:[:new,:create,:index,:show]
-    resource :members, only:[:show ,:edit,:update]
+    resource :customers, only: [:edit, :update]
     resources :addresses, only:[:index, :edit, :destroy, :create, :update]
   end
  end

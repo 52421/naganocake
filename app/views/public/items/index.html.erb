@@ -1,23 +1,18 @@
 <div class="row login-row">
  <div class="col-xs-9">
   <h2><%= "#{@index}商品一覧 （全#{@items.count}件）" %></h2>
-   <% @items.each do |item| %>
-    <div class="product-box">
-     <table class="table">
-      <tr>
-       <th>
-        <%= image_tag item.image, size: "200x200" %> 
-       </th>
-      </tr>
-      <tr>
-       <th><%= link_to item.name, item_path(item) %></th>
-      </tr>
-      <tr>
-       <th>￥<%= (item.price * 1.1).to_i %></th>
-      </tr>
-     </table>
+   <div class="d-flex align-items-center flex-wrap">
+        <div>
+          <% @items.each do |item| %>
+              <%= link_to item_path(item) do %>
+               <%= image_tag item.image, size: "100x100" %>
+              <% end %>
+               <%= item.name %>
+              ¥<%= item.with_tax_price.to_s(:delimited) %>
+          <% end %>
+        </div>
+      </div>
+      <%= paginate @items %>
     </div>
-   <% end %>
-  <%= paginate @items %>
- </div>
-</div>
+  </div>
+  
