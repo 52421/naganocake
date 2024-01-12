@@ -13,45 +13,36 @@ class Public::CustomersController < ApplicationController
   end
 
   def edit
-   @customer = Customer.find(params[:id])
+   @customer = current_customer
     if @customer.id != current_customer.id
      redirect_to root_path
     end
   end
 
   def update
-   @customer = Customer.find(params[:id])
+    @customer = current_customer
     if @customer.update(customer_params)
-     if customer_signed_in?
-      flash[:notice] = "登録情報が更新されました。"
-      redirect_to customer_path(current_customer)
-     else
-      redirect_to request.referrer
-     end
-     
-     else
-	  flash[:notice] = "項目を正しく記入してください"
-	  redirect_to request.referrer
-     end
-  end
-
-  def quit
-   @customer = Customer.find(params[:id])
-    if @customer.id != current_customer.id
-     redirect_to root_path
+      redirect_to my_page_path
+    else
+      render :edit
     end
   end
 
-  def invalid
-   @customer = Customer.find(params[:id])
-   @customer.update(customer_params)
-   reset_session
-   flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
-   redirect_to root_path
+  def unsubscribe
+  end
+
+  def withdraw
+    @customer = Customer.find(current_customer.id)
+    # is_deletedカラムをtrueに変更することにより削除フラグを立てる
+    @customer.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会処理を実行いたしました"
+    redirect_to root_path
+    reset_session
   end
 
  private
   def customer_params
-   params.require(:customer).permit(:first_name, :last_name, :kana_first_name, :kana_last_name, :email, :postcode, :address, :phone_number, :is_valid,:reset_password_token, :password, :password_confirmation)
+   params.require(:customer).permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :email, :postal_code, :address, :telephone_number, :is_valid,:reset_password_token, :password, :password_confirmation)
   end
 end

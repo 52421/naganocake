@@ -31,15 +31,16 @@ Rails.application.routes.draw do
     resources :items, only:[:index,:show,:new] do
     get :search, on: :collection # ジャンル検索機能用
     end
-    resources :cart_items
+    resources :cart_items, only:[:index, :update, :destroy, :create] 
     post '/orders/session' => 'orders#session_create'
     get '/orders/confirm' => 'orders#confirm'
     post '/orders/confirm' => 'orders#confirm'
-   get 'orders/complete' => "orders#complete"
-    patch '/members/withdrawal' => 'members#destroy'
-    get '/members/withdrawal' => 'members#withdrawal'
+    get 'orders/complete' => "orders#complete"
+    patch 'customers/withdraw' => "customers#withdraw"
+    get 'customers/unsubscribe' => "customers#unsubscribe"
     resources :orders, only:[:new,:create,:index,:show]
-    resource :customers, only: [:edit, :update]
+    patch '/customers/information' => "customers#update"
+    get '/customers/information/edit' => "customers#edit"
     resources :addresses, only:[:index, :edit, :destroy, :create, :update]
   end
  end

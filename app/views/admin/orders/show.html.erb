@@ -6,7 +6,7 @@
           <strong>購入者</strong>
         </h3>
         <h3>
-          <%= @order.customer.last_name + " " + @order.customer.first_name %>
+          <%= @order.customer&.last_name.to_s + @order.customer&.first_name.to_s %>
         </h3>
         
         <h3>
