@@ -31,7 +31,7 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    @order.save # ここで初めて指定した各情報を保存
+    @order.save! # ここで初めて指定した各情報を保存
 
     current_customer.cart_items.each do |cart_item| #注文詳細モデル(order_details)に各注文商品を保存
       @order_detail = OrderDetail.new
@@ -46,6 +46,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
+    @orders = current_customer.orders
   end
 
   def show

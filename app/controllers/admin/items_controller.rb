@@ -17,7 +17,7 @@ class Admin::ItemsController < ApplicationController
     @item = Item.new(item_params)
     if @item.save
       flash.now[:success] = "商品の新規登録が完了しました。"
-      redirect_to admin_items_path
+       redirect_to admin_item_path(@item)
     else
       flash.now[:danger] = "商品の新規登録内容に不備があります。"
       render :new

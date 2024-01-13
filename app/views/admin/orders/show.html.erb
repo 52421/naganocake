@@ -51,10 +51,10 @@
            <tbody>
           <% @order.order_details.each do |order_detail|%>
             <tr>
-              <td><p><%= order_detail.item.name %></p></td>
-              <td><p> <%= order_detail.item.with_tax_price.to_s(:delimited) %></p></td>
-              <td><p><%= order_detail.amount %></p></td>
-              <td><p><%= order_detail.price.to_s(:delimited) %></p></td>
+              <th><%= order_detail.item.name %></th>
+              <th><%= order_detail.item.with_tax_price.to_s(:delimited) %></th>
+              <th><%= order_detail.amount %></th>
+              <th><%= order_detail.price.to_s(:delimited) %></th>
             </tr>
             <% end %>
         </tbody>

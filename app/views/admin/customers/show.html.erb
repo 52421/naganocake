@@ -10,11 +10,11 @@
                     <th>顧客ID</th>
                     <td><%= @customer.id %>
                     <span class="label label-primary">
-                    <% if @customer.is_active == true %>
-                    有効
-                    <% else %>
-                    退会済み
-                    <% end %>
+                     <% if @customer.is_deleted == !true %>
+                        有効
+                     <% else %>
+                        退会済み
+                     <% end %>
                     </span>
                     </td>
                 </tr>

@@ -24,11 +24,11 @@
                         
                         <td><%= customer.email %></td>
                         <td>
-                            <% if customer.is_active == true %>
-                                有効
-                            <% else %>
-                                退会済み
-                            <% end %>
+                           <% if customer.is_deleted == !true %>
+                            有効
+                           <% else %>
+                            退会済み
+                           <% end %>
                         </td>
                 </tr>
                 <% end %>
