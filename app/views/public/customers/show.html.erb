@@ -5,18 +5,14 @@
     </div>
   </div>
 　
-　<div class="row my-3">
-		<div class="offset-sm-3">
-			<strong class="red-border px-3 pb-1">登録情報</strong>
-		</div>
-	</div>
-	<% if current_customer.present? %>
+　<h3>
+		登録情報
+		<%= link_to "編集する", customers_information_edit_path, class: "btn btn-success m10" %>
+		<%= link_to "パスワードを変更する", edit_customer_registration_path, class: "btn btn-success ml0" %>
+	</h3>
+	
   <div class="row">
-    <%= link_to "編集する", customers_information_edit_path, class: "btn btn-outline-danger mx-auto my-1" %>
-  </div>
-　<% end %>
-  <div class="row">
-	  <div class="offset-sm-4 col-sm-4">
+	  <div class="col">
 	    <table class="table table-borderless table-hover">
 	      <tr class="brown-border">
 		    	<td>氏名</td>
@@ -57,10 +53,24 @@
     </div>
   </div>
 
-		<div class="offset-sm-1 col-sm-3">
-		 	<div class="row">
-				<%= link_to "注文一覧を見る", orders_path, class: "btn btn-primary btn-outline-danger my-1" %>
-			</div>
+    <div class="row">
+		<div class="col-sm-3">
+		 	<tr class="brown-border">
+		 	 <td>配送先</td>
+	     <td><%= link_to "配送先一覧", addresses_path, class: "btn btn-primary" %></td><br>
+	    </tr>
+	    
+	    <tr class="brown-border">
+	     <td>注文履歴</td>
+	   	 <td><%= link_to "注文履歴一覧", orders_path, class: "btn btn-primary ml2" %></td>
+	   	</tr>
+	   	
+	   	<tr class="brown-border">
+	     <td>お気に入り</td>
+	   	 <td><%= link_to "お気に入り一覧", orders_path, class: "btn btn-primary ml2" %></td>
+	   	</tr>
+	   </div>
+		</div>
 	</div>
 </div>
   

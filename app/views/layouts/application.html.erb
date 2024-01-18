@@ -2,10 +2,11 @@
 <html>
   <head>
     <title>NaganoCake</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    
+ 
+    <script src="https://kit.fontawesome.com/a2b7a944cd.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -23,8 +24,6 @@
       <%= yield %>
     </div>
 
-    <!-- Footer -->
-    <%= render "layouts/footer" %>
     </body>
   <% elsif admin_signed_in? %>
     <body id="wrapper" style="background-color: #EEEEEE; font-family: HiraMinPro-W6; color: #000000;">
@@ -37,9 +36,7 @@
     <div class="container" style="margin-top: 20px;">
       <%= yield %>
     </div>
-
-    <!-- Footer -->
-    <%= render "layouts/footer" %>
+    
     </body>
   <% else %>
     <body id="wrapper" style="background-color: white; font-family: HiraMinPro-W6; color: #000000; ">
@@ -52,10 +49,9 @@
     <div class="container" style="margin-top: 20px;">
       <%= yield %>
     </div>
-
-    <!-- Footer -->
-    <%= render "layouts/footer" %>
-    </body>
   <% end %>
 </html>
   
+<footer class="navbar navbar-default">
+  Copyright © Infratop Inc. All Rights Reserved.
+</footer>

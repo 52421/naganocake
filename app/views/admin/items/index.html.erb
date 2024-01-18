@@ -2,18 +2,24 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8 px-sm-0 offset-sm-1">
-            <h2 class="my-5">商品一覧</h2>
+           <% if params[:genre_id] %>
+			<h2 class="section-ttl"><%= @genre.name %>の商品一覧 (全<%= @all_items_count %>件)</h2>
+		<% else %>
+			<h2 class="section-ttl">商品一覧 (全<%= @all_items_count %>件)</h2>
+		<% end %>
+		<h3 class="text-right">
+			<%= link_to "+", new_admin_item_path, class: "new_admin_item" %>
+		</h3>
+		<% if @items.first %> <!-- @item.existsと同義、SQL1個分削減(?) -->
+			<%= paginate @items %>
+		<% else %>
+			<h3>対応する商品はありませんでした。</h3>
+		<% end %>
+            
+                     
+            
         </div>
-        <div class="col-lg-3">
-         <p class="h2 float-right">
-          <%= link_to "商品新規追加", new_admin_item_path %>
-         </p>
-        </div>
-        <div class="col-sm-2 px-sm-0 text-right mt-5">
-            <%= link_to new_admin_item_path,class:"btn btn btn-outline-secondary" do %>
-            <i class="fas fa-plus fa-2x "></i>
-            <% end %>
-        </div>
+     </div>
     </div>
     <div class="row">
     　<div class="col-sm-10 offset-1">
@@ -23,15 +29,24 @@
              <th>商品ID</th>
              <th>商品名</th>
              <th>税抜価格</th>
+             <th>ジャンル名</th>
              <th>ステータス</th>
             </tr>
          </thread>
         <tbody>
          <% @items.each do |item| %>
          <tr>
-          <td><%= item.id %></td>
-          <td><%= link_to item.name,admin_item_path(item.id) %></td>
-          <td><%= item.price %></td>
+          <td class="text-center"><%= item.id %></td>
+          <td><%= link_to item.name,admin_item_path(item.id), class: "underline" %></td>
+          <td class="text-center"><%= item.price %>円</td>
+          <td><%= link_to item.genre.name, admin_items_path(genre_id: item.genre_id) %></td>
+				<td>
+					<% if item.is_active? %>
+						<span class="text-active">販売中</span>
+					<% else %>
+						<span class="text-invalid">販売停止中</span>
+					<% end %>
+				</td>
          </tr>
         <% end %>
         </tbody>

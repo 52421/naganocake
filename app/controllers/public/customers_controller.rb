@@ -41,6 +41,7 @@ class Public::CustomersController < ApplicationController
     reset_session
   end
 
+
  private
   def customer_params
    params.require(:customer).permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :email, :postal_code, :address, :telephone_number, :is_valid,:reset_password_token, :password, :password_confirmation)

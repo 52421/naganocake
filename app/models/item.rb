@@ -1,6 +1,9 @@
 class Item < ApplicationRecord
+  belongs_to :genre
   has_many :cart_items, dependent: :destroy
   has_many :order_details, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_one_attached :image
   
@@ -14,6 +17,10 @@ class Item < ApplicationRecord
   #消費税 計算メソッド
   def with_tax_price
     (price * 1.1).floor # floorを用いて小数点以下切り捨て
+  end
+
+  def favorited_by?(customer)
+    favorites.exists?(customer_id: customer.id)
   end
 
   def get_image(width, height)

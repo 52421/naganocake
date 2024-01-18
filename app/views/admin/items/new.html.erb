@@ -28,6 +28,12 @@
           </div>
         </tr>
         <tr>
+          <div class="form-group">
+            <th><%= f.label :genre_id, "ジャンル" %></th>
+            <td><%= f.collection_select :genre_id, Genre.all, :id, :name %></td>
+          </div>
+        </tr>
+        <tr>
         <div class="form-group">
           <th><%= f.label :税抜価格 %></th>
           <td><%= f.text_field :price, placeholder:"1000" %>円</td>

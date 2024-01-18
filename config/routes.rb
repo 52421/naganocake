@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     get '/customers/my_page' => "customers#show", as: "my_page"
     delete '/cart_items/destroy_all' => 'cart_items#destroy_all'
     resources :items, only:[:index,:show,:new] do
+      resources :post_comments, only: [:create, :destroy]
+      resource :favorite, only: [:create, :destroy]
     get :search, on: :collection # ジャンル検索機能用
     end
     resources :cart_items, only:[:index, :update, :destroy, :create] 
@@ -44,3 +46,5 @@ Rails.application.routes.draw do
     resources :addresses, only:[:index, :edit, :destroy, :create, :update]
   end
  end
+
+

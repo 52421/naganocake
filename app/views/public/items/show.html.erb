@@ -5,11 +5,12 @@
 	</div>
 <% end %>
 <div class="container">
+ <div class="row">
+  <div class="col-md-5">
+   <%= image_tag @item.image, size: "300x300" %>
+  
  <div class="col-lg-5">
-  <%= image_tag @item.image, size: "200x200" %>
- </div>
- <div class="col-lg-5">
-  <h1 class="pull-left" style="font-weight: bold; margin-top:100px;"><%= @item.name %></h1>
+  <p class="pull-left" style="font-weight: bold; margin-top:30px;"><%= @item.name %></p>
  </div>
 <div class="col-lg-5">
  <p class="pull-left"><%= @item.introduction %></p>
@@ -24,4 +25,38 @@
   <%= f.select :amount, *[1..10] %>
   <%= f.submit "カートに入れる", class: "btn btn-primary" %>
 <% end %>
+</div>
+
+ <div class="col-md-4 offset-md-1">
+ <% if @item.favorited_by?(current_customer) %>
+    <p>
+      <%= link_to item_favorite_path(@item), method: :delete do %>
+        ♥<%= @item.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to item_favorite_path(@item), method: :post do %>
+        ♡<%= @item.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+
+<div>
+  <p>コメント件数：<%= @item.post_comments.count %></p>
+  <% @item.post_comments.each do |post_comment| %>
+    <%= post_comment.customer.id %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <% if post_comment.customer == current_customer %>
+      <%= link_to "削除", item_post_comment_path(post_comment.item, post_comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@item, @post_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
+</div>
 </div>
