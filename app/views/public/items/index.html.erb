@@ -4,15 +4,32 @@
    <div class="d-flex align-items-center flex-wrap">
         <div>
           <% @items.each do |item| %>
-              <%= link_to item_path(item) do %>
-               <%= image_tag item.image, size: "150x150" %>
+              <td><%= link_to item_path(item) do %></td>
+              <td><%= image_tag item.image, size: "150x150" %></td>
               <% end %>
-               <%= item.name %>
-              ¥<%= item.with_tax_price.to_s(:delimited) %>
+              <td><%= item.name %></td>
+              <td>¥<%= item.with_tax_price.to_s(:delimited) %></td>
+              <% if current_customer %>
+              <td>
+                <% if current_customer.already_favorited?(item) %>
+                  <%= link_to item_favorites_path(item), method: :delete do %>
+                    <i class="fas fa-heart"></i>
+                  <% end %>
+                   <%= item.favorites.count %>
+                  <% else %>
+                  <%= link_to item_favorites_path(item), method: :post do %>
+                    <i class="far fa-heart"></i>
+                  <% end %>
+                  <%= item.favorites.count %>
+                <% end %>
+              </td>
+            <% end %>
           <% end %>
         </div>
       </div>
       <%= paginate @items %>
     </div>
   </div>
+  
+  
   

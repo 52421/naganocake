@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     delete '/cart_items/destroy_all' => 'cart_items#destroy_all'
     resources :items, only:[:index,:show,:new] do
       resources :post_comments, only: [:create, :destroy]
-      resource :favorite, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
     get :search, on: :collection # ジャンル検索機能用
     end
     resources :cart_items, only:[:index, :update, :destroy, :create] 
@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     get 'orders/complete' => "orders#complete"
     patch 'customers/withdraw' => "customers#withdraw"
     get 'customers/unsubscribe' => "customers#unsubscribe"
+    get 'customers/favorite' => "customers#favorite"
     resources :orders, only:[:new,:create,:index,:show]
     patch '/customers/information' => "customers#update"
     get '/customers/information/edit' => "customers#edit"

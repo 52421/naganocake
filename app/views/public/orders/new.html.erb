@@ -24,7 +24,10 @@
     <p>
       <%= current_customer.address_display %>
     </p>
-    
+    <p>
+			<%= radio_button_tag "select_address", 1 %>登録済住所から選択 %
+			<%= select_tag "address_id", options_from_collection_for_select(current_customer.addresses, :id, :finally_address), prompt: "住所を選択してください" %>
+		</p>
     <p>
       <%= f.radio_button :address_option, 2 %>
       新しいお届け先

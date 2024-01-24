@@ -3,7 +3,6 @@ class Public::CustomersController < ApplicationController
 
   def show
    @customer = current_customer
-    
   end
 
   def create
@@ -41,6 +40,13 @@ class Public::CustomersController < ApplicationController
     reset_session
   end
 
+  def favorite
+  favorites = Favorite.where(customer_id: current_customer.id).pluck(:item_id)
+  @favorite_list = Item.find(favorites)
+  respond_to do |format|
+    format.html # favorite.html.erbを表示
+  end
+  end
 
  private
   def customer_params

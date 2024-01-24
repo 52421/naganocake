@@ -27,4 +27,8 @@ class Customer < ApplicationRecord
     '〒' + postal_code + ' ' + address + ' ' + last_name + first_name
   end
 
+  def already_favorited?(item)
+    self.favorites.exists?(item_id: item.id)
+  end
+  
 end

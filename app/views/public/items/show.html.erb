@@ -27,20 +27,17 @@
 <% end %>
 </div>
 
- <div class="col-md-4 offset-md-1">
- <% if @item.favorited_by?(current_customer) %>
-    <p>
-      <%= link_to item_favorite_path(@item), method: :delete do %>
-        ♥<%= @item.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to item_favorite_path(@item), method: :post do %>
-        ♡<%= @item.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
+　<% if current_customer.already_favorited?(@item) %>
+            <%= link_to item_favorites_path(@item), method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+            <%= @item.favorites.count %>
+          <% else %>
+            <%= link_to item_favorites_path(@item), method: :post do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+            <%= @item.favorites.count %>　
+          <% end %>
 
 <div>
   <p>コメント件数：<%= @item.post_comments.count %></p>

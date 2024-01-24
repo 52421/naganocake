@@ -1,0 +1,6 @@
+<% if @favorite_list.present? %>
+  <% @favorite_list.each do |item| %>
+    <%= item.name %>
+    <%= image_tag item.image, size: "150x150" %>
+    <% end %>
+<% end %>
