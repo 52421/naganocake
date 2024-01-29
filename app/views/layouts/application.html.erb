@@ -7,50 +7,31 @@
     <%= csp_meta_tag %>
  
     <script src="https://kit.fontawesome.com/a2b7a944cd.js" crossorigin="anonymous"></script>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
-
- <% if customer_signed_in? %>
-    <body id="wrapper" style="background-color: white; font-family: HiraMinPro-W6; color: #000000;">
+ <body id="wrapper" style="background-color: white; font-family: HiraMinPro-W6; color: #000000;">
+ 
+   
     <!-- ヘッダー -->
-    <div id="header">
+    <header class="<%= (admin_signed_in? ? "admin_header" : "" ) %>">
+     <div class="header-content">
       <%= render "layouts/header" %>
-    </div>
+     </div>
+    </header>
 
     <!-- Body部分 -->
-    <div class="container" style="margin-top: 20px;">
+    <div class="container" style="margin-top: 100px; min-height: 360px;">
       <%= yield %>
     </div>
 
-    </body>
-  <% elsif admin_signed_in? %>
-    <body id="wrapper" style="background-color: #EEEEEE; font-family: HiraMinPro-W6; color: #000000;">
-    <!-- ヘッダー -->
-    <div id="header">
-      <%= render "layouts/header" %>
-    </div>
-
-    <!-- Body部分 -->
-    <div class="container" style="margin-top: 20px;">
-      <%= yield %>
-    </div>
     
-    </body>
-  <% else %>
-    <body id="wrapper" style="background-color: white; font-family: HiraMinPro-W6; color: #000000; ">
-    <!-- ヘッダー -->
-    <div id="header">
-      <%= render "layouts/header" %>
-    </div>
+ 
+   
+   
 
-    <!-- Body部分 -->
-    <div class="container" style="margin-top: 20px;">
-      <%= yield %>
-    </div>
-  <% end %>
-</html>
+
   
 <footer>
  <div class="container mt-5">
@@ -61,3 +42,5 @@
   </div>
  </div>
 </footer>
+</body>
+</html>

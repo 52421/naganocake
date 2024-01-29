@@ -1,6 +1,5 @@
 <header class="shadow-sm">
- <nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container">
+ <nav class=" navbar-expand-lg navbar-light">
    <% if customer_signed_in? %>
     <div class="welcome"> <i class="fas fa-bullhorn"></i>　ようこそ<%= current_customer.last_name %>さん！
      <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -15,7 +14,7 @@
    <% elsif admin_signed_in? %>
     <div class="admin-header">
      <div class="navbar-collapse collapse" id="navbarNavDropdown" style="">
-       <ul class="flex">
+       <ul class="navbar-nav ml-auto">
         <h3>ながのCAKE</h3>
             <li><%= link_to "商品一覧", admin_items_path %></li>
             <li><%= link_to "会員一覧", admin_customers_path %></li>
@@ -33,9 +32,16 @@
             <li class="<%= 'active' if controller.controller_name == 'sessions' %>"><%= link_to "ログイン", new_customer_session_path %></li>
             <li class="<%= 'active' if controller.controller_name == 'registrations' %>"><%= link_to "新規登録", new_customer_registration_path %></li>
      </ul>
+      <% if admin_signed_in? %>
+          <%= form_tag(admin_search_path, method: :get) do %>
+            <%= text_field_tag "search[content]", "", :placeholder =>"会員: 姓,名,セイ,メイ / 商品: 商品名" %>
+            <%= select_tag "search[model]", options_for_select({ "会員" => "customer", "商品" => "item" }) %>
+            <%= select_tag "search[method]", options_for_select({ "部分一致" => "partial", "前方一致" => "forward", "後方一致" => "backward", "完全一致" => "perfect" }) %>
+            <%= submit_tag '検索', class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
     </div>
    <% end %>
-  </div>
  </nav>
 </header>
 

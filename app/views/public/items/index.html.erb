@@ -1,35 +1,42 @@
-<div class="row login-row">
- <div class="col-xs-9">
-  <h2><%= "#{@index}商品一覧 （全#{@items.count}件）" %></h2>
-   <div class="d-flex align-items-center flex-wrap">
-        <div>
+<div class="container">
+ <div class="row-lg-3">
+  <div class="sidebar">
+		<h5>ジャンル一覧</h5>
+		<% @genres.each do |genre| %>
+			<%= link_to genre.name, items_path(genre_id: genre.id) %>
+		<% end %>
+  </div>
+ <div class="content">
+   <h5><%= "#{@index}商品一覧 （全#{@items.count}件）" %></h5>
+     <div class="items">
+       <div class="row">
           <% @items.each do |item| %>
-              <td><%= link_to item_path(item) do %></td>
-              <td><%= image_tag item.image, size: "150x150" %></td>
+           <div class= "col-lg-3">
+              <p><%= link_to item_path(item) do %></p>
+               <p><%= image_tag item.image, size: "150x150" %></p>
               <% end %>
-              <td><%= item.name %></td>
-              <td>¥<%= item.with_tax_price.to_s(:delimited) %></td>
+              <p><%= item.name %></p>
+              <p>¥<%= item.with_tax_price.to_s(:delimited) %></p>
               <% if current_customer %>
-              <td>
-                <% if current_customer.already_favorited?(item) %>
-                  <%= link_to item_favorites_path(item), method: :delete do %>
-                    <i class="fas fa-heart"></i>
-                  <% end %>
-                   <%= item.favorites.count %>
-                  <% else %>
-                  <%= link_to item_favorites_path(item), method: :post do %>
-                    <i class="far fa-heart"></i>
-                  <% end %>
-                  <%= item.favorites.count %>
-                <% end %>
-              </td>
-            <% end %>
+                  <p>
+                    <% if current_customer.already_favorited?(item) %>
+                      <%= link_to item_favorites_path(item), method: :delete do %>
+                        <i class="fas fa-heart"></i>
+                      <% end %>
+                       <%= item.favorites.count %>
+                      <% else %>
+                      <%= link_to item_favorites_path(item), method: :post do %>
+                        <i class="far fa-heart"></i>
+                      <% end %>
+                      <%= item.favorites.count %>
+                    <% end %>
+                  </p>
+              <% end %>
+           </div>
           <% end %>
-        </div>
       </div>
       <%= paginate @items %>
     </div>
   </div>
-  
-  
-  
+ </div>
+</div>

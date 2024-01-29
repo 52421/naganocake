@@ -5,6 +5,15 @@ class Public::ItemsController < ApplicationController
 
  def index
   @items = Item.all.page(params[:page])
+  @genres = Genre.only_active
+    if params[:genre_id]
+      @genre = @genres.find(params[:genre_id])
+      all_items = @genre.items
+    else
+      all_items = Item.where_genre_active.includes(:genre)
+    end
+    @items = all_items.page(params[:page]).per(12)
+    @all_items_count = all_items.count
  end
 
  
