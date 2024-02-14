@@ -79,8 +79,7 @@
       <strong>お届け先</strong>
     </p>
     <p>
-      
-      <%= @order.address_display %>
+      〒<%= @order.postal_code %> <%= @order.address %><br><%= @order.name %>
     </p>
   </div>
   <div class="row">
