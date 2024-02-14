@@ -1,14 +1,14 @@
-ながのCAKE
+#ながのCAKE
 長野県にある小さな洋菓子店「ながのCAKE」の商品を通販するためのECサイト
 
-Description
+##Description
 Instagramから人気となり、全国から注文が来るようになったため、 情報の管理機能を含んだ通販サイト
 
-Dependency
+##Dependency
 Ruby on rails (5.2.4) HTML&CSS
 Javascript
 
-Usage
+##Usage
 会員側実装機能
 
 顧客は会員登録、ログイン・ログアウト、退会ができる
