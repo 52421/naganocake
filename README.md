@@ -25,3 +25,9 @@ Instagramから人気となり、全国から注文が来るようになった�
 * 会員登録されているユーザ情報の閲覧、編集、退会処理が行える
 * ユーザの注文履歴が一覧・詳細表示できる
 * 注文履歴には注文ごとに下記の情報が表示される
+
+## ER図
+ ![image](https://github.com/52421/naganocake/assets/141691768/5fb18633-bbcd-4ab5-a339-7f5bda2e1190)
+ 
+## 機能一覧
+ ![image](https://github.com/52421/naganocake/assets/141691768/ce968405-d5f8-4b24-8f05-52581ebcccd9)

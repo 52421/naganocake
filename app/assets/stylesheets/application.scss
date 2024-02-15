@@ -59,7 +59,7 @@ header {
   z-index: 100;
   top: 0;
   left: 0;
-  background-color: #faa;
+  background-color: #eee9dd;
   * {
     position: relative;
     z-index: 100;
@@ -103,7 +103,16 @@ header {
 }
 main {
   padding: 100px 0;
+  color: #592e15;
 }
+
+body {
+  background-color: #f5f2eb;
+  color: #592e15;
+}
+
+
+
 footer {
   padding: 15px 0;
   font-size: 14px;
